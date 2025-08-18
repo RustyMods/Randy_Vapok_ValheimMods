@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Common;
 using HarmonyLib;
@@ -21,6 +22,8 @@ namespace EpicLoot.LegendarySystem
         {
             ID = nameof(GenericLegendaryInfo)
         };
+        
+        public static event Action OnSetupLegendaryItemConfig;
 
         public static void Initialize(LegendaryItemConfig config)
         {
@@ -38,6 +41,8 @@ namespace EpicLoot.LegendarySystem
             MythicSets.Clear();
             _mythicItemsToSetMap.Clear();
             AddMythicSets(config.MythicSets);
+            
+            OnSetupLegendaryItemConfig?.Invoke();
         }
 
         private static void AddLegendaryInfo([NotNull] IEnumerable<LegendaryInfo> legendaryItems)
