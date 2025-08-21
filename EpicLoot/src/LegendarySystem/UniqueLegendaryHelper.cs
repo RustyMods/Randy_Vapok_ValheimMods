@@ -28,6 +28,7 @@ namespace EpicLoot.LegendarySystem
         public static void Initialize(LegendaryItemConfig config)
         {
             Config = config;
+            OnSetupLegendaryItemConfig?.Invoke();
             LegendaryInfo.Clear();
             AddLegendaryInfo(config.LegendaryItems);
 
@@ -42,7 +43,6 @@ namespace EpicLoot.LegendarySystem
             _mythicItemsToSetMap.Clear();
             AddMythicSets(config.MythicSets);
             
-            OnSetupLegendaryItemConfig?.Invoke();
         }
 
         private static void AddLegendaryInfo([NotNull] IEnumerable<LegendaryInfo> legendaryItems)
